@@ -3,6 +3,8 @@ import mongoose from "mongoose"
 import Cards from "./dbCards.js"
 import Cors from "cors"
 
+import Test from "./test.js"
+
 //App config
 const app = express();
 const port = process.env.PORT || 8001
@@ -40,6 +42,28 @@ app.get('/tinder/cards', (req, res)=> {
     })
 })
 
+// 
+
+app.post('/tinder/tests', (req, res)=> {
+    const test = req.body;
+    Test.create(test, (err, data)=> {
+        if(err){
+            res.status(500).send(err)
+        } else{
+            res.status(201).send(data)
+        }
+    })
+})
+
+app.get('/tinder/tests', (req, res)=> {
+    Test.find((err, data)=> {
+        if(err){
+            res.status(500).send(err)
+        } else{
+            res.status(200).send(data)
+        }
+    })
+})
 
 
 //Listener
